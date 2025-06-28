@@ -3,6 +3,10 @@ package BIBLIOTECA.Usuarios;
 public abstract class Usuarios implements IUsuarios {
     private int usuarioId;
     private String nome;
+    private int tempoMaxEmprestimo;
+    private boolean devedor;
+    private int tempoLimLivros;
+    private ArrayList<Emp
 
     public Usuarios(int usuarioId, String nome) {
         this.usuarioId = usuarioId;
@@ -23,6 +27,21 @@ public abstract class Usuarios implements IUsuarios {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    //talvez fazer uma classe ou interface para emprestimo 
+    public String pegarEmprestado(int usuarioId, int livroId){
+        // Implementar lógica de empréstimo
+
+    }
+
+    public String devolver(int usuarioId, int livroId){
+        // Implementar lógica de devolução
+
+    }
+
+    public String reservar(int usuarioId, int livroId) {
+        // Implementar lógica de reserva
     }
 
 

@@ -7,6 +7,7 @@ public class Livro implements ILivro {
     private String autores;
     private String edicao;
     private String anoDePublicacao;
+    private boolean disponibilidade;
 
     public Livro(int livroId, String titulo, String editora, String autores, String edicao, String anoDePublicacao) {
         this.livroId = livroId;

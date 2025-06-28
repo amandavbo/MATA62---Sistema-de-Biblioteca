@@ -1,6 +1,7 @@
 package BIBLIOTECA.Usuarios;
 
 public class Professor extends Usuarios {
+    private static final int tempoMaxEmprestimo = 8;
 
     public Professor(int usuarioId, String nome) {
         super(usuarioId, nome);
