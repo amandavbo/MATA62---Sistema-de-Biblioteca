@@ -1,5 +1,6 @@
 package BIBLIOTECA.Livros.Livro;
 
-public interface ILivroObservavel {
+public interface ILivroObservavel extends ILivro {
+    
 
 }

@@ -1,4 +1,4 @@
-package MATA62---Sistema-de-Biblioteca.BIBLIOTECA.Utilidades;
+package BIBLIOTECA.Utilidades;
 
 public class consultarInfoLivro {
     

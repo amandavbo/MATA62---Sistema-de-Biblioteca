@@ -1,4 +1,4 @@
-package MATA62---Sistema-de-Biblioteca.BIBLIOTECA;
+package BIBLIOTECA.Utilidades;
 
 public class formatarEntrada {
     private String entrada;

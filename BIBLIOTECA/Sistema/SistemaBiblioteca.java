@@ -1,31 +1,32 @@
-package MATA62---Sistema-de-Biblioteca.BIBLIOTECA;
+package BIBLIOTECA.Sistema;
 
+//import java.util.ArrayList;
 
-import java.util.ArrayList;
-
+// Padrão Singleton
 
 public class SistemaBiblioteca {
-    private ArrayList<Usuario> usuarios;
-    private ArrayList<Livro> livros;
 
-    public SistemaBiblioteca() {
-        this.usuarios = new ArrayList<>();
-        this.livros = new ArrayList<>();
-    }
+    private static SistemaBiblioteca instance;
+    private SistemaBiblioteca() {};
 
-    public String consultarInfoLivro(){
-        this.buscarLivroPorId();
-    }
-
-    public void buscarLivroPorId(int livroId) {
-        for (Livro livro : livros) {
-            if (livro.getLivroId() == livroId) {
-                System.out.println("Livro encontrado: " + livro.getTitulo());
-                return;
-            }
+    public static SistemaBiblioteca getInstance() {
+        if (instance == null) {
+            instance = new SistemaBiblioteca();
         }
-        System.out.println("Livro não encontrado.");
-        
+        return instance;
     }
+    
+    //realizar emprestimo
 
+    //realizar devolucao
+
+    //realizar reserva
+
+    //observar reserva de livros
+
+    //mostrar dados dos livros
+
+    //mostrar dados dos usuarios
+
+    //mostrar notificacoes dos usuarios
 }

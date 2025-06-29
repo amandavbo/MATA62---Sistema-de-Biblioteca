@@ -1,6 +1,6 @@
 package BIBLIOTECA.Livros.Livro;
 
-public class Livro implements ILivro {
+public class Livro implements ILivroObservavel {
     private int livroId;
     private String titulo;
     private String editora;
@@ -18,7 +18,7 @@ public class Livro implements ILivro {
         this.anoDePublicacao = anoDePublicacao;
     }
 
-    public int getLivroId() {
+    public int getCodigo() {
         return livroId;
     }
 
