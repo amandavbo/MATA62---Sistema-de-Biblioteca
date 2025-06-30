@@ -7,7 +7,8 @@ public class Livro implements ILivroObservavel {
     private String autores;
     private String edicao;
     private String anoDePublicacao;
-    private boolean disponibilidade;
+    private int qtdDeReservas;
+    //private boolean disponibilidade; não é necessário, pois a disponibilidade pode ser calculada com base na quantidade de exemplares
 
     public Livro(int livroId, String titulo, String editora, String autores, String edicao, String anoDePublicacao) {
         this.livroId = livroId;
@@ -16,6 +17,8 @@ public class Livro implements ILivroObservavel {
         this.autores = autores;
         this.edicao = edicao;
         this.anoDePublicacao = anoDePublicacao;
+        this.qtdDeReservas = 0;
+        //this.disponibilidade = true; // por padrão, o livro está disponível
     }
 
     public int getCodigo() {
@@ -64,6 +67,31 @@ public class Livro implements ILivroObservavel {
 
     public void setAnoDePublicacao(String anoDePublicacao) {
         this.anoDePublicacao = anoDePublicacao;
+    }
+
+    public int getQtdDeReservas() {
+        return qtdDeReservas;
+    }
+
+    public void adicionarDaQtdDeReservas() {
+        this.qtdDeReservas++;
+    }
+
+    public void removerDaQtdDeReservas() {
+        if (this.qtdDeReservas > 0) {
+            this.qtdDeReservas--;
+        }
+    }
+
+    public String toString() {
+        return "Livro: " + livroId + "\n" +
+               "Título: " + titulo + "\n" +
+               "Editora: " + editora + "\n" +
+               "Autores: " + autores + "\n" +
+               "Edição: " + edicao + "\n" +
+               "Ano de Publicação: " + anoDePublicacao + "\n" +
+               "Quantidade de Reservas: " + qtdDeReservas + "\n";
+               //"Disponibilidade: " + (disponibilidade ? "Disponível" : "Indisponível") + "\n";
     }
 
 }

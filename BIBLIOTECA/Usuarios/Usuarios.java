@@ -3,10 +3,10 @@ package BIBLIOTECA.Usuarios;
 public abstract class Usuarios implements IUsuarios {
     private int usuarioId;
     private String nome;
-    private int tempoMaxEmprestimo;
-    private boolean devedor;
-    private int tempoLimLivros;
-    //private ArrayList<Emp
+    // private int tempoMaxEmprestimo;
+    // private boolean devedor;
+    // private int tempoLimLivros;
+    // private ArrayList<Emp
 
     public Usuarios(int usuarioId, String nome) {
         this.usuarioId = usuarioId;
