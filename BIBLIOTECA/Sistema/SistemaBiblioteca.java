@@ -7,9 +7,7 @@ package BIBLIOTECA.Sistema;
 import java.util.ArrayList;
 import java.util.List;
 import BIBLIOTECA.Usuarios.IUsuarios;
-import BIBLIOTECA.Usuarios.AlunoGraduacao;
-import BIBLIOTECA.Usuarios.AlunoPosGraduacao;
-import BIBLIOTECA.Usuarios.Professor;
+import BIBLIOTECA.Usuarios.Usuarios;
 import BIBLIOTECA.Livros.Livro.Livro;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Livros.Exemplar.Exemplar;
@@ -37,10 +35,10 @@ public class SistemaBiblioteca {
 
     private void inicializarDadosTeste() {
         // add usuários
-        usuarios.add(new AlunoGraduacao(123, "João da Silva"));
-        usuarios.add(new AlunoPosGraduacao(456, "Luiz Fernando Rodrigues"));
-        usuarios.add(new AlunoGraduacao(789, "Pedro Paulo"));
-        usuarios.add(new Professor(100, "Carlos Lucena"));
+        usuarios.add(new Usuarios(123, "João da Silva", "Aluno de Graduação"));
+        usuarios.add(new Usuarios(456, "Luiz Fernando Rodrigues", "Aluno de Pós-Graduação"));
+        usuarios.add(new Usuarios(789, "Pedro Paulo", "Aluno de Graduação"));
+        usuarios.add(new Usuarios(100, "Carlos Lucena", "Professor"));
 
         // add livros
         Object[][] livrosData = {

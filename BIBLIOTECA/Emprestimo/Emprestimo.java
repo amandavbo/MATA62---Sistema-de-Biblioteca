@@ -6,34 +6,22 @@ import BIBLIOTECA.Sistema.IBiblioteca;
 import BIBLIOTECA.Usuarios.IUsuarios;
 
 public class Emprestimo implements IBiblioteca {
-
-    private int emprestismoId;
-    private IUsuarios usuario;
     private Exemplar exemplar;
     private Date dataDeEmprestimo;
     private Date dataDeDevolucao;
-    private boolean devolvido;
+    private int emprestimoId;
+    private IUsuarios usuarioEmprestimo;
 
-    public Emprestimo(IUsuarios usuario, Exemplar exemplar) {
+    public Emprestimo(IUsuarios usuarioEmprestimo, Exemplar exemplar, Date dataDeEmprestimo, Date dataDeDevolucao) {
+        this.usuarioEmprestimo = usuarioEmprestimo;
         this.exemplar = exemplar;
-        this.usuario = usuario;
-        this.dataDeEmprestimo = new Date();
+        this.dataDeEmprestimo = dataDeEmprestimo;
+        this.dataDeDevolucao = dataDeDevolucao;
     }
 
-    public Emprestimo(IUsuarios usuario, Exemplar exemplar, Date dataDeEmprestimo) {
-        this.exemplar = exemplar;
-        this.usuario = usuario;
-        this.dataDeEmprestimo = dataDeEmprestimo != null ? dataDeEmprestimo : new Date();
-        this.devolvido = false;
-        this.dataDeDevolucao = this.calcularDataDeDevolucao();
-    }
-
-    public int getCodigo() {
-        return emprestismoId;
-    }
-
-    public IUsuarios getUsuario() {
-        return usuario;
+    public boolean estaAtrasado() {
+        Date hoje = new Date();
+        return dataDeDevolucao != null && dataDeDevolucao.before(hoje);
     }
 
     public Exemplar getExemplar() {
@@ -48,27 +36,11 @@ public class Emprestimo implements IBiblioteca {
         return dataDeDevolucao;
     }
 
-    public boolean estaDisponivel() {
-        return devolvido;
+    public int getCodigo() {
+        return emprestimoId;
     }
-
-    public Date calcularDataDeDevolucao() {
-        long dataLimite = dataDeEmprestimo.getTime() + usuario.maximoDeTempoDeEmprestimo();
-        return new Date(dataLimite);
-    }
-
-    public void devolver() {
-        this.devolvido = true;
-        this.dataDeDevolucao = new Date();
-    }
-
-    public String toString() {
-        return "ID do Empréstimo: " + emprestismoId + "\n" +
-               "Usuário: " + usuario.getNome() + "\n" +
-               "ID do Usuário: " + usuario.getCodigo() + "\n" +
-               "Título do Livro: " + exemplar.getLivro().getTitulo() + "\n" +
-               "Exemplar: " + exemplar.getCodigo() + "\n" +
-               "Data de Empréstimo: " + dataDeEmprestimo.toString() + "\n" +
-               "Data de Devolução: " + (devolvido ? dataDeDevolucao.toString() : "Não devolvido") + "\n";
+    
+    public IUsuarios getUsuarioEmprestimo() {
+        return usuarioEmprestimo;
     }
 }

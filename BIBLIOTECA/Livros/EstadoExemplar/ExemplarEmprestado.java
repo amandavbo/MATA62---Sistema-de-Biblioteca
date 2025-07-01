@@ -11,16 +11,10 @@ public class ExemplarEmprestado implements IExemplarEstado {
     private IUsuarios usuarioEmprestimo;
     private Emprestimo emprestimo;
 
-    public ExemplarEmprestado(IUsuarios usuarioEmprestimo, Exemplar exemplar) {
+    public ExemplarEmprestado(IUsuarios usuarioEmprestimo, Exemplar exemplar, Date dataDeEmprestimo, Date dataDeDevolucao) {
         this.exemplar = exemplar;
         this.usuarioEmprestimo = usuarioEmprestimo;
-        this.emprestimo = new Emprestimo(usuarioEmprestimo, exemplar);
-    } 
-
-    public ExemplarEmprestado(IUsuarios usuarioEmprestimo, Exemplar exemplar, Date dataDeDevolucao)  {
-        this.exemplar = exemplar;
-        this.usuarioEmprestimo = usuarioEmprestimo;
-        this.emprestimo = new Emprestimo(usuarioEmprestimo, exemplar, dataDeDevolucao);
+        this.emprestimo = new Emprestimo(usuarioEmprestimo, exemplar, dataDeEmprestimo, dataDeDevolucao);
     } 
 
     public Exemplar getExemplar() {
@@ -44,7 +38,6 @@ public class ExemplarEmprestado implements IExemplarEstado {
     }
 
     public void devolver() {
-        getEmprestimo().devolver();
         exemplar.setEstado(new ExemplarDisponivel(exemplar));
     }
     
