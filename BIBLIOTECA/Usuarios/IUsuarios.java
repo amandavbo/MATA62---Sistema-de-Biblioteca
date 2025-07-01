@@ -8,4 +8,5 @@ public interface IUsuarios extends IBiblioteca {
     public String devolver(int usuarioId, int livroId);
     public String reservar(int usuarioId, int livroId);
     public long maximoDeTempoDeEmprestimo();
+    public String getTipoDeUsuario();
 }

@@ -1,7 +1,8 @@
 package BIBLIOTECA.Usuarios;
 
 public class Professor extends Usuarios {
-    // private static final int tempoMaxEmprestimo = 8;
+
+    private static final String TipoDeusuario = "Professor";
 
     public Professor(int usuarioId, String nome) {
         super(usuarioId, nome);
@@ -17,6 +18,10 @@ public class Professor extends Usuarios {
 
     public boolean podeIgnorarListaDeReverva() {
         return true;
+    }
+
+    public String getTipoDeUsuario() {
+        return TipoDeusuario;
     }
     
 }

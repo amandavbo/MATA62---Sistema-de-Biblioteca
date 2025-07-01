@@ -1,9 +1,12 @@
 package BIBLIOTECA.Livros.Livro;
 
-public interface ILivroObservavel extends ILivro {
+import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
+import java.util.List;
 
-    public int getQtdDeReservas();
-    public void adicionarDaQtdDeReservas();
-    public void removerDaQtdDeReservas();
-    
+public interface ILivroObservavel extends ILivro {
+    int getQtdDeReservas();
+    void adicionarDaQtdDeReservas();
+    void removerDaQtdDeReservas();
+    void adicionarExemplar(IExemplarEmprestavel exemplar);
+    List<IExemplarEmprestavel> getExemplares();
 }

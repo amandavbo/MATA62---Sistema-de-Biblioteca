@@ -3,6 +3,7 @@ package BIBLIOTECA.Usuarios;
 public abstract class Usuarios implements IUsuarios {
     private int usuarioId;
     private String nome;
+    
     // private int tempoMaxEmprestimo;
     // private boolean devedor;
     // private int tempoLimLivros;

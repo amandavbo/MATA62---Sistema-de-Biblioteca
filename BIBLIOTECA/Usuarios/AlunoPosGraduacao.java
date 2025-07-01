@@ -1,7 +1,7 @@
 package BIBLIOTECA.Usuarios;
 
 public class AlunoPosGraduacao extends Usuarios {
-    // private static final int tempoMaxEmprestimo = 5;
+    private static final String TipoDeusuario = "Aluno de Pós-Graduação";
 
     public AlunoPosGraduacao(int usuarioId, String nome) {
         super(usuarioId, nome);
@@ -14,5 +14,9 @@ public class AlunoPosGraduacao extends Usuarios {
     public long maximoDeTempoDeEmprestimo() {
         return 5 * 24 * 60 * 60 * 1000; // 5 dias em milissegundos
     }
-    
+
+    public String getTipoDeUsuario() {
+        return TipoDeusuario;
+    }
+  
 }

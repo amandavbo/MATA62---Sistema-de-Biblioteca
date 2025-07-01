@@ -1,5 +1,9 @@
 package BIBLIOTECA.Livros.Livro;
 
+import java.util.ArrayList;
+import java.util.List;
+import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
+
 public class Livro implements ILivroObservavel {
     private int livroId;
     private String titulo;
@@ -8,6 +12,7 @@ public class Livro implements ILivroObservavel {
     private String edicao;
     private String anoDePublicacao;
     private int qtdDeReservas;
+    private List<IExemplarEmprestavel> exemplares;
     //private boolean disponibilidade; não é necessário, pois a disponibilidade pode ser calculada com base na quantidade de exemplares
 
     public Livro(int livroId, String titulo, String editora, String autores, String edicao, String anoDePublicacao) {
@@ -18,7 +23,15 @@ public class Livro implements ILivroObservavel {
         this.edicao = edicao;
         this.anoDePublicacao = anoDePublicacao;
         this.qtdDeReservas = 0;
+        this.exemplares = new ArrayList<>();
         //this.disponibilidade = true; // por padrão, o livro está disponível
+    }
+    public void adicionarExemplar(IExemplarEmprestavel exemplar) {
+        this.exemplares.add(exemplar);
+    }
+
+    public List<IExemplarEmprestavel> getExemplares() {
+        return exemplares;
     }
 
     public int getCodigo() {
