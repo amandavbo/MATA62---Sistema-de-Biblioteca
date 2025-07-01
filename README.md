@@ -11,15 +11,37 @@ Este projeto tem como objetivo simular o funcionamento de um sistema de bibliote
 
 ---
 
-## ⚙️ Lógica e Funcionamento
 
-O sistema segue os seguintes princípios:
+## ⚙️ Lógica, Estrutura e Padrões de Projeto
 
-- **Padrão Command**: usado para processar comandos de forma extensível e organizada;
-- **Padrão Strategy**: aplicado para encapsular regras distintas de empréstimo por tipo de usuário;
-- **Padrão Singleton**: utilizado na classe `Repositorio` para garantir uma única fonte de dados;
-- **Sem uso de estruturas condicionais para tipo de usuário**;
+O sistema foi desenvolvido com foco em **orientação a interfaces**, baixo acoplamento e uso explícito de padrões de projeto:
+
+- **Command**: Cada ação do usuário (empréstimo, devolução, reserva, consulta, observação) é encapsulada em uma classe de comando, facilitando a extensão e manutenção do sistema.
+- **Strategy**: As regras de empréstimo variam conforme o tipo de usuário (aluno de graduação, pós-graduação, professor) e são encapsuladas em estratégias distintas, selecionadas dinamicamente via um mapa de estratégias, sem uso de `if` ou `switch` para lógica de negócio.
+- **Singleton**: O sistema de biblioteca (`SistemaBiblioteca`) é implementado como singleton, centralizando o gerenciamento de usuários, livros e exemplares em memória.
+- **Observer** (em desenvolvimento): Professores podem se tornar observadores de livros, recebendo notificações de eventos relevantes.
+- **Orientação a interfaces**: Todas as entidades principais (usuário, livro, exemplar) dependem de interfaces, permitindo fácil extensão e baixo acoplamento.
 - **Sem persistência em banco de dados** – todos os dados são carregados em memória no início da execução.
+
+### 🧩 Estrutura Modular
+
+- `SistemaBiblioteca.java`: Singleton com listas de livros, usuários e métodos de consulta/manipulação.
+- `Command/`: Comandos do usuário implementando o padrão Command.
+- `Strategy/`: Estratégias de empréstimo para cada tipo de usuário.
+- `Emprestimo/`: Gerenciador de empréstimos, histórico e regras de atraso.
+- `Usuarios/`: Usuários implementando interface e selecionando estratégia de empréstimo via mapa.
+- `Livros/`: Entidades de livro, exemplar e estados (disponível/emprestado) usando padrão State.
+- `Reserva/`: (Opcional) Gerenciamento de reservas.
+- `Utilidades/`: Funções auxiliares e formatação de dados.
+
+### 🚦 Regras e Restrições Técnicas
+
+- ❌ **Sem banco de dados** (dados criados em memória)
+- ❌ **Sem interface gráfica** (linha de comando apenas)
+- ❌ **Sem uso de `if` ou `switch` para tipos de usuário** na lógica de negócio (uso de mapa de estratégias)
+- ✅ Uso explícito de padrões de projeto (`Command`, `Strategy`, `Singleton`, `State`, `Observer`)
+- ✅ Entrada de dados simulada via terminal
+
 
 ---
 
@@ -96,17 +118,19 @@ java Main
 
 ---
 
-## 🧠 Lógica de Implementação
 
-O sistema foi dividido em módulos coesos:
+## 🧠 Resumo da Implementação
 
-- `Repositorio.java`: Singleton com listas de livros e usuários;
-- `Comando.java` + subclasses: executam ações (emp, dev, res...);
-- `ConsoleInterface.java`: interage com o usuário e delega comandos;
-- `Usuario.java` e subclasses: implementam comportamentos distintos via Strategy;
-- `Livro`, `Exemplar`, `Reserva`, `Emprestimo`, `Notificacao`: representam entidades de domínio.
+O sistema é altamente modular, orientado a interfaces e padrões:
 
-Essas decisões permitem **alta coesão, baixo acoplamento** e facilitam **extensões futuras**, como novos tipos de usuário ou novas regras.
+- **Gerenciamento centralizado**: `SistemaBiblioteca` (Singleton) inicializa e gerencia todos os dados em memória.
+- **Comandos**: Cada ação do usuário é um comando independente, facilitando a extensão.
+- **Usuários flexíveis**: Cada usuário possui um gerenciador de empréstimos próprio e seleciona sua estratégia de empréstimo via mapa, sem condicionais.
+- **Livros e exemplares**: Gerenciados por interfaces e estados, permitindo múltiplos exemplares e controle de disponibilidade.
+- **Regras de negócio**: Estratégias de empréstimo encapsulam as regras específicas de cada perfil.
+- **Notificações e observação**: Professores podem observar livros e receber notificações (em desenvolvimento).
+
+Essas decisões garantem **alta coesão, baixo acoplamento** e facilitam a extensão para novos tipos de usuário, regras ou funcionalidades.
 
 ---
 
