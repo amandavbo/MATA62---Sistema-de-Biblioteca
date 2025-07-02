@@ -13,7 +13,7 @@ public class ComandosDoUsuario {
         comandos.put("dev", new DevolucaoCommand());
         comandos.put("lus", new ListarUsuariosCommand());
         comandos.put("llv", new ListarLivrosCommand());
-        comandos.put("liv", new ConsultaExemplaresLivroCommand());
+        comandos.put("liv", new ConsultaLivroCommand());
         comandos.put("obs", new ObservacaoCommand());
         comandos.put("res", new ReservaCommand());
         comandos.put("usu", new ConsultaUsuarioCommand());
