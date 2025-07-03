@@ -3,28 +3,29 @@ package BIBLIOTECA.Strategy;
 import BIBLIOTECA.Usuarios.IUsuarios;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Emprestimo.GerenciadorDeEmprestimos;
+import BIBLIOTECA.Utilidades.GerenciadorMensagens;
 
 public class RegraDeEmprestimoProfessor implements RegrasDeEmprestimo {
 
     public boolean podeEmprestar(IUsuarios usuario, ILivroObservavel livro) {
 
-        GerenciadorDeEmprestimos emprestimoManager = usuario.getGerenciadorDeEmprestimos();
+        GerenciadorDeEmprestimos emprestimo = usuario.getGerenciadorDeEmprestimos();
 
-        // não tem exemplar disponível
+        //não tem exemplar disponivel
         if (livro.getExemplares().stream().noneMatch(ex -> ex.getEstado().estaDisponivel())) {
-            System.out.println("Não há exemplares disponíveis para o livro " + livro.getTitulo());
+            GerenciadorMensagens.semExemplarDisponivel(livro.getTitulo());
             return false;
         }
 
-        // usuário é devedor
-        if (emprestimoManager.eDevedor()) {
-            System.out.println("O usuário " + usuario.getNome() + " está com empréstimos em atraso");
+        //usuário é devedor
+        if (emprestimo.eDevedor()) {
+            GerenciadorMensagens.usuarioDevedor(usuario.getNome());
             return false;
         }
 
-        // já tem empréstimo desse livro
-        if (emprestimoManager.possuiEmprestimoDoLivro(livro.getCodigo())) {
-            System.out.println("O usuário " + usuario.getNome() + " já possui um exemplar do livro " + livro.getTitulo());
+        //já tem emprestimo desse livro
+        if (emprestimo.possuiEmprestimoDoLivro(livro.getCodigo())) {
+            GerenciadorMensagens.jaPossuiExemplar(usuario.getNome(), livro.getTitulo());
             return false;
         }
 

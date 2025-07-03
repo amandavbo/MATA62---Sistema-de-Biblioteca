@@ -1,6 +1,8 @@
 package BIBLIOTECA.Usuarios;
 
 import BIBLIOTECA.Emprestimo.GerenciadorDeEmprestimos;
+import BIBLIOTECA.Livros.Livro.ILivroObservavel;
+import BIBLIOTECA.Reserva.GerenciadorDeReserva;
 import BIBLIOTECA.Strategy.RegraDeEmprestimoAlunoGraduacao;
 import BIBLIOTECA.Strategy.RegraDeEmprestimoAlunoPosGraduacao;
 import BIBLIOTECA.Strategy.RegraDeEmprestimoProfessor;
@@ -12,6 +14,7 @@ public class Usuarios implements IUsuarios {
     private String TipoDeUsuario;
     private GerenciadorDeEmprestimos gerenciadorDeEmprestimos;
     private RegrasDeEmprestimo regraDeEmprestimo;
+    private GerenciadorDeReserva gerenciadorDeReserva;
 
     public Usuarios(int usuarioId, String nome, String tipoDeUsuario) {
         this.usuarioId = usuarioId;
@@ -19,6 +22,7 @@ public class Usuarios implements IUsuarios {
         this.TipoDeUsuario = tipoDeUsuario;
         this.gerenciadorDeEmprestimos = new GerenciadorDeEmprestimos();
         this.regraDeEmprestimo = definirRegraDeEmprestimo(tipoDeUsuario);
+        this.gerenciadorDeReserva = new GerenciadorDeReserva();
     }
     
     public GerenciadorDeEmprestimos getGerenciadorDeEmprestimos() {
@@ -35,6 +39,30 @@ public class Usuarios implements IUsuarios {
 
     public RegrasDeEmprestimo getRegraDeEmprestimo() {
         return regraDeEmprestimo;
+    }
+
+    public GerenciadorDeReserva getGerenciadorDeReserva() {
+        return gerenciadorDeReserva;
+    }
+
+    public void adicionarReserva(ILivroObservavel livro) {
+        this.gerenciadorDeReserva.addReserva(livro);
+    }
+
+    public void removerReserva(int livroId) {
+        this.gerenciadorDeReserva.removerReserva(livroId);
+    }
+
+    public java.util.List<?> getReservas() {
+        return this.gerenciadorDeReserva.getReservas();
+    }
+
+    public java.util.List<java.util.Map<String, String>> getReservasFormatadas() {
+        return this.gerenciadorDeReserva.getReservasFormatadas();
+    }
+
+    public boolean possuiReserva(ILivroObservavel livro) {
+        return this.gerenciadorDeReserva.possuiReserva(livro);
     }
 
     public int getCodigo() {

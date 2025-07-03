@@ -3,41 +3,43 @@ package BIBLIOTECA.Strategy;
 import BIBLIOTECA.Usuarios.IUsuarios;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Emprestimo.GerenciadorDeEmprestimos;
+import BIBLIOTECA.Reserva.GerenciadorDeReserva;
+import BIBLIOTECA.Utilidades.GerenciadorMensagens;
 
 public class RegraDeEmprestimoAlunoPosGraduacao implements RegrasDeEmprestimo {
 
     public boolean podeEmprestar(IUsuarios usuario, ILivroObservavel livro) {
 
-        GerenciadorDeEmprestimos emprestimoManager = usuario.getGerenciadorDeEmprestimos();
-        // GerenciadorDeReservas reservaManager = usuario.getGerenciadorDeReservas();
+        GerenciadorDeEmprestimos emprestimo = usuario.getGerenciadorDeEmprestimos();
+        GerenciadorDeReserva reserva = usuario.getGerenciadorDeReserva();
 
-        // não tem exemplar disponível
+        //não tem exemplar disponível
         if (livro.getExemplares().stream().noneMatch(ex -> ex.getEstado().estaDisponivel())) {
-            System.out.println("Não há exemplares disponíveis para o livro " + livro.getTitulo());
+            GerenciadorMensagens.semExemplarDisponivel(livro.getTitulo());
             return false;
         }
 
-        // usuário é devedor
-        if (emprestimoManager.eDevedor()) {
-            System.out.println("O usuário " + usuario.getNome() + " está com empréstimos em atraso");
+        //usuario é devedor
+        if (emprestimo.eDevedor()) {
+            GerenciadorMensagens.usuarioDevedor(usuario.getNome());
             return false;
         }
 
-        // limite de 3 empréstimos
-        if (emprestimoManager.quantidadeDeLivrosEmprestados() >= 3) {
-            System.out.println("O usuário " + usuario.getNome() + " já possui 2 empréstimos");
+        //limite de 3 emprestimos
+        if (emprestimo.quantidadeDeLivrosEmprestados() >= 3) {
+            GerenciadorMensagens.limiteEmprestimos(usuario.getNome(), 3);
             return false;
         }
 
-        // 4. Reservas excedidas e usuário não reservou
-        // if (livro.getQtdDeReservas() >= livro.getExemplares().size() && !reservaManager.possuiReserva(livro)) {
-        //     System.out.println("O livro " + livro.getTitulo() + " possui " + livro.getQtdDeReservas() + " reservas e não está reservado por " + usuario.getNome());
-        //     return false;
-        // }
+        //reservas excedidas e usuário não reservou
+        if (livro.getQtdDeReservas() >= livro.getExemplares().size() && !reserva.possuiReserva(livro)) {
+            GerenciadorMensagens.reservasExcedidas(livro.getTitulo(), livro.getQtdDeReservas(), usuario.getNome());
+            return false;
+        }
 
-        // já tem empréstimo desse livro
-        if (emprestimoManager.possuiEmprestimoDoLivro(livro.getCodigo())) {
-            System.out.println("O usuário " + usuario.getNome() + " já possui um exemplar do livro " + livro.getTitulo());
+        //já tem empréstimo desse livro
+        if (emprestimo.possuiEmprestimoDoLivro(livro.getCodigo())) {
+            GerenciadorMensagens.jaPossuiExemplar(usuario.getNome(), livro.getTitulo());
             return false;
         }
 

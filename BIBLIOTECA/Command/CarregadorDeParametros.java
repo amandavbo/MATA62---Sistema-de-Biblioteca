@@ -1,7 +1,5 @@
 package BIBLIOTECA.Command;
 
-// armazenar e acessar os parâmetros recebidos de comandos, individualmente ou como array.
-
 public class CarregadorDeParametros {
 
     private String[] parametros;

@@ -13,7 +13,6 @@ public class Livro implements ILivroObservavel {
     private String anoDePublicacao;
     private int qtdDeReservas;
     private List<IExemplarEmprestavel> exemplares;
-    //private boolean disponibilidade; não é necessário, pois a disponibilidade pode ser calculada com base na quantidade de exemplares
 
     public Livro(int livroId, String titulo, String editora, String autores, String edicao, String anoDePublicacao) {
         this.livroId = livroId;
@@ -24,7 +23,6 @@ public class Livro implements ILivroObservavel {
         this.anoDePublicacao = anoDePublicacao;
         this.qtdDeReservas = 0;
         this.exemplares = new ArrayList<>();
-        //this.disponibilidade = true; // por padrão, o livro está disponível
     }
     public void adicionarExemplar(IExemplarEmprestavel exemplar) {
         this.exemplares.add(exemplar);

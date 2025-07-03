@@ -12,7 +12,6 @@ public class Exemplar implements IExemplarEmprestavel {
     public Exemplar(int exemplarId, ILivroObservavel livro) {
         this.exemplarId = exemplarId;
         this.livro = livro;
-        // inicializa como disponível
         setEstado(new ExemplarDisponivel(this));
     }
 

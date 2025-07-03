@@ -12,12 +12,10 @@ public class Reserva implements IBiblioteca {
     private Date dataDeReserva;
     private boolean ativa;
 
-    public Reserva(IUsuarios usuario, ILivroObservavel livro) {
+    public Reserva(ILivroObservavel livro, Date dataDeReserva) {
         this.livro = livro;
-        this.usuario = usuario;
-        this.dataDeReserva = new Date(); 
+        this.dataDeReserva = dataDeReserva; 
         this.ativa = true; 
-        //livro.AdicionarDaQtdDeReservas();
     }
 
     public int getCodigo() {
@@ -38,11 +36,6 @@ public class Reserva implements IBiblioteca {
 
     public boolean reservaAtiva() {
         return ativa;
-    }
-
-    public void cancelarReserva() {
-        this.ativa = false;
-        //livro.RemoverDaQtdDeReservas();
     }
 
     public String toString() {

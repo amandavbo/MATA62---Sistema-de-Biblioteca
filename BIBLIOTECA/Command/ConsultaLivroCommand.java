@@ -3,11 +3,9 @@ package BIBLIOTECA.Command;
 
 import BIBLIOTECA.Sistema.SistemaBiblioteca;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
-import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
-import BIBLIOTECA.Reserva.Reserva;
 
 public class ConsultaLivroCommand implements Command {
-    @Override
+    
     public void execute(CarregadorDeParametros parametros) {
         if (parametros.getParametros().length < 1) {
             System.out.println("Comando 'liv' requer o código do livro.");
