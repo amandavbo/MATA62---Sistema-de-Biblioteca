@@ -41,7 +41,7 @@ public class EmprestimoCommand implements Command {
 
             // Busca exemplar disponível
             IExemplarEmprestavel exemplarDisponivel = null;
-            List<IExemplarEmprestavel> exemplares = sistema.getExemplaresDoLivro(livro);
+            List<IExemplarEmprestavel> exemplares = livro.getExemplares();
             for (IExemplarEmprestavel ex : exemplares) {
                 if (ex.getEstado().estaDisponivel()) {
                     exemplarDisponivel = ex;

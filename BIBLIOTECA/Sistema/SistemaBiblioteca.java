@@ -82,10 +82,4 @@ public class SistemaBiblioteca {
         return livros;
     }
 
-    public List<IExemplarEmprestavel> getExemplaresDoLivro(ILivroObservavel livro) {
-        if (livro instanceof Livro) {
-            return ((Livro) livro).getExemplares();
-        }
-        return new ArrayList<>();
-    }
 }

@@ -3,6 +3,8 @@ package BIBLIOTECA.Livros.Livro;
 import java.util.ArrayList;
 import java.util.List;
 import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
+import BIBLIOTECA.Reserva.Reserva;
+import BIBLIOTECA.Usuarios.IUsuarios;
 
 public class Livro implements ILivroObservavel {
     private int livroId;
@@ -13,6 +15,7 @@ public class Livro implements ILivroObservavel {
     private String anoDePublicacao;
     private int qtdDeReservas;
     private List<IExemplarEmprestavel> exemplares;
+    private List<Reserva> reservas;
 
     public Livro(int livroId, String titulo, String editora, String autores, String edicao, String anoDePublicacao) {
         this.livroId = livroId;
@@ -23,6 +26,7 @@ public class Livro implements ILivroObservavel {
         this.anoDePublicacao = anoDePublicacao;
         this.qtdDeReservas = 0;
         this.exemplares = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
     public void adicionarExemplar(IExemplarEmprestavel exemplar) {
         this.exemplares.add(exemplar);
@@ -94,6 +98,15 @@ public class Livro implements ILivroObservavel {
         }
     }
 
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void adicionarReserva(Reserva reserva) {
+        this.reservas.add(reserva);
+        adicionarDaQtdDeReservas();
+    }
+
     public String toString() {
         return "Livro: " + livroId + "\n" +
                "Título: " + titulo + "\n" +
@@ -102,7 +115,6 @@ public class Livro implements ILivroObservavel {
                "Edição: " + edicao + "\n" +
                "Ano de Publicação: " + anoDePublicacao + "\n" +
                "Quantidade de Reservas: " + qtdDeReservas + "\n";
-               //"Disponibilidade: " + (disponibilidade ? "Disponível" : "Indisponível") + "\n";
     }
 
 }
