@@ -20,8 +20,8 @@ public class ExemplarDisponivel implements IExemplarEstado {
         return;
     }
 
-    public void emprestar(IUsuarios usuario) {
-        exemplar.setEstado(new ExemplarEmprestado(usuario, exemplar, null, null));
+    public void emprestar(IUsuarios usuario, Emprestimo emprestimo) {
+        exemplar.setEstado(new ExemplarEmprestado(usuario, exemplar, emprestimo.getDataDeEmprestimo(), emprestimo.getDataDeDevolucao()));
     }
 
     public boolean estaDisponivel() {

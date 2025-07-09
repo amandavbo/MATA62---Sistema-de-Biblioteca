@@ -10,7 +10,7 @@ import BIBLIOTECA.Emprestimo.Emprestimo;
 import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Reserva.Reserva;
-import BIBLIOTECA.Livros.Livro.Livro;
+
 
 public class ConsultaLivroCommand implements Command {
     
@@ -36,58 +36,38 @@ public class ConsultaLivroCommand implements Command {
                 return;
             }
 
-            System.out.println("--------------------------------------------------");
-            System.out.println("Informações do Livro");
-            System.out.println("--------------------------------------------------");
-            System.out.println("Título: " + livro.getTitulo());
-            System.out.println("Editora: " + livro.getEditora());
-            System.out.println("Autores: " + livro.getAutores());
-            System.out.println("Edição: " + livro.getEdicao());
-            System.out.println("Ano de Publicação: " + livro.getAnoDePublicacao());
+            System.out.println("(i) Título: " + livro.getTitulo());
 
-            long exemplaresDisponiveis = livro.getExemplares().stream().filter(e -> e.getEstado().estaDisponivel()).count();
-            int totalExemplares = livro.getExemplares().size();
-
-            System.out.println("Exemplares disponíveis: " + exemplaresDisponiveis + " de " + totalExemplares);
-
-            System.out.println("--------------------------------------------------");
-
-            System.out.println("\nExemplares do livro '" + livro.getTitulo() + "':");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            for (IExemplarEmprestavel exemplar : livro.getExemplares()) {
-                String status = exemplar.getEstado().estaDisponivel() ? "Disponível" : "Emprestado";
-                if (status.equals("Disponível")) {
-                    System.out.println("  - Exemplar ID: " + exemplar.getCodigo() + " - Disponível");
-                } else {
-                    Emprestimo emprestimo = exemplar.getEstado().getEmprestimo();
-                    if (emprestimo != null) {
-                        System.out.println("  - Exemplar ID: " + exemplar.getCodigo() + " - Emprestado para " + emprestimo.getUsuarioEmprestimo().getNome());
-                        if (emprestimo.getDataDeEmprestimo() != null)
-                            System.out.println("    Data de Empréstimo: " + sdf.format(emprestimo.getDataDeEmprestimo()));
-                        if (emprestimo.getDataDeDevolucao() != null)
-                            System.out.println("    Data de Devolução: " + sdf.format(emprestimo.getDataDeDevolucao()));
-                    } else {
-                        System.out.println("  - Exemplar ID: " + exemplar.getCodigo() + " - Emprestado");
+            List<Reserva> reservas = livro.getReservas();
+            System.out.println("(ii) Quantidade de reservas: " + (reservas != null ? reservas.size() : 0));
+            if (reservas != null && !reservas.isEmpty()) {
+                for (Reserva reserva : reservas) {
+                    if (reserva.getUsuario() != null) {
+                        System.out.println("    - " + reserva.getUsuario().getNome());
                     }
                 }
             }
 
-            System.out.println("--------------------------------------------------");
+            System.out.println("(iii) Exemplares:");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            for (IExemplarEmprestavel exemplar : livro.getExemplares()) {
+                String status = exemplar.getEstado().estaDisponivel() ? "disponível" : "emprestado";
+                System.out.println("    - Código: " + exemplar.getCodigo() + ", Status: " + status);
 
-            List<Reserva> reservas = livro.getReservas();
-
-            if (reservas != null && !reservas.isEmpty()) {
-                System.out.println("\nUsuários que reservaram este livro:");
-                for (Reserva reserva : reservas) {
-                    if (reserva.getUsuario() != null)
-                        System.out.println(" ID: " + reserva.getUsuario().getCodigo() + " - " + reserva.getUsuario().getNome());
-                    else
-                        System.out.println(" ID: (usuário não informado)");
+                if (!exemplar.getEstado().estaDisponivel()) {
+                    Emprestimo emprestimo = exemplar.getEstado().getEmprestimo();
+                    if (emprestimo != null && emprestimo.getUsuarioEmprestimo() != null) {
+                        System.out.println("        - Usuário: " + emprestimo.getUsuarioEmprestimo().getNome());
+                        if (emprestimo.getDataDeEmprestimo() != null) {
+                            System.out.println("        - Data de empréstimo: " + sdf.format(emprestimo.getDataDeEmprestimo()));
+                        }
+                        if (emprestimo.getDataDeDevolucao() != null) {
+                            System.out.println("        - Data de devolução: " + sdf.format(emprestimo.getDataDeDevolucao()));
+                        }
+                    }
                 }
-            } else {
-                System.out.println("\nNenhuma reserva para este livro.");
             }
-            
+
         } catch (NumberFormatException e) {
             System.out.println("Código do livro inválido.");
         }

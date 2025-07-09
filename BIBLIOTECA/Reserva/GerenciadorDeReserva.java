@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
+import BIBLIOTECA.Usuarios.IUsuarios;
 
 public class GerenciadorDeReserva {
 
@@ -18,8 +19,8 @@ public class GerenciadorDeReserva {
         return reservas;
     }
 
-    public void addReserva(ILivroObservavel livro) {
-        reservas.add(new Reserva(livro, new Date()));
+    public void addReserva(ILivroObservavel livro, IUsuarios usuario) {
+        reservas.add(new Reserva(livro, usuario, new Date()));
     }
 
     public void removerReserva(int livroId) {

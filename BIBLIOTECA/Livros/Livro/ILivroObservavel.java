@@ -12,4 +12,5 @@ public interface ILivroObservavel extends ILivro {
     void adicionarExemplar(IExemplarEmprestavel exemplar);
     List<IExemplarEmprestavel> getExemplares();
     List<Reserva> getReservas();
+    void adicionarReserva(Reserva reserva);
 }

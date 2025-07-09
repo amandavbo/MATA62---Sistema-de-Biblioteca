@@ -30,6 +30,13 @@ public class ExemplarEmprestado implements IExemplarEstado {
     }
 
     public void emprestar(IUsuarios usuario) {
+        // Método não aplicável quando o exemplar já está emprestado
+        return;
+    }
+
+    @Override
+    public void emprestar(IUsuarios usuario, Emprestimo emprestimo) {
+        // Método não aplicável quando o exemplar já está emprestado
         return;
     }
 

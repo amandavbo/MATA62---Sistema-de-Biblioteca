@@ -12,8 +12,9 @@ public class Reserva implements IBiblioteca {
     private Date dataDeReserva;
     private boolean ativa;
 
-    public Reserva(ILivroObservavel livro, Date dataDeReserva) {
+    public Reserva(ILivroObservavel livro, IUsuarios usuario, Date dataDeReserva) {
         this.livro = livro;
+        this.usuario = usuario;
         this.dataDeReserva = dataDeReserva; 
         this.ativa = true; 
     }

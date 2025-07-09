@@ -46,7 +46,7 @@ public class Usuarios implements IUsuarios {
     }
 
     public void adicionarReserva(ILivroObservavel livro) {
-        this.gerenciadorDeReserva.addReserva(livro);
+        this.gerenciadorDeReserva.addReserva(livro, this);
     }
 
     public void removerReserva(int livroId) {
