@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Date;
 
 public class GerenciadorDeEmprestimos {
 
@@ -32,6 +33,8 @@ public class GerenciadorDeEmprestimos {
     public void devolverEmprestimo(Emprestimo emprestimo) {
         emprestimo.getExemplar().getEstado().devolver();
         emprestimosAtuais.remove(emprestimo);
+        emprestimo.setStatus("Finalizado"); // Define o status como Finalizado
+        emprestimo.setDataDeDevolucao(new Date()); // Atualiza a data de devolução para a data atual
         historicoEmprestimos.add(emprestimo);
     }
 
@@ -62,19 +65,15 @@ public class GerenciadorDeEmprestimos {
         List<Map<String, String>> lista = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        for (Emprestimo e : emprestimosAtuais) {
+        List<Emprestimo> todosEmprestimos = new ArrayList<>();
+        todosEmprestimos.addAll(emprestimosAtuais);
+        todosEmprestimos.addAll(historicoEmprestimos);
+
+        for (Emprestimo e : todosEmprestimos) {
             Map<String, String> info = new HashMap<>();
             info.put("Título: ", e.getExemplar().getLivro().getTitulo());
             info.put("Data do Empréstimo: ", e.getDataDeEmprestimo() != null ? sdf.format(e.getDataDeEmprestimo()) : "Data não disponível");
-            info.put("Status: ", "Em curso");
-            info.put("Data de Devolucao: ", e.getDataDeDevolucao() != null ? sdf.format(e.getDataDeDevolucao()) : "Data não disponível");
-            lista.add(info);
-        }
-        for (Emprestimo e : historicoEmprestimos) {
-            Map<String, String> info = new HashMap<>();
-            info.put("Título: ", e.getExemplar().getLivro().getTitulo());
-            info.put("Data do Empréstimo: ", e.getDataDeEmprestimo() != null ? sdf.format(e.getDataDeEmprestimo()) : "Data não disponível");
-            info.put("Status: ", "Finalizado");
+            info.put("Status: ", e.getStatus());
             info.put("Data de Devolucao: ", e.getDataDeDevolucao() != null ? sdf.format(e.getDataDeDevolucao()) : "Data não disponível");
             lista.add(info);
         }

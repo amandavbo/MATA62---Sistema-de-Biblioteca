@@ -13,6 +13,9 @@ import BIBLIOTECA.Reserva.Reserva;
 public class ConsultaLivroCommand implements Command {
     
     public void execute(CarregadorDeParametros parametros) {
+        
+        SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
+
         if (parametros.getParametros().length < 1) {
             System.out.println("Comando 'liv' requer o código do livro.");
             return;
@@ -22,7 +25,7 @@ public class ConsultaLivroCommand implements Command {
             int idLivro = Integer.parseInt(parametros.getParametros()[0]);
             ILivroObservavel livro = null;
 
-            for (ILivroObservavel l : SistemaBiblioteca.getInstance().getLivros()) {
+            for (ILivroObservavel l : sistema.getLivros()) {
                 if (l.getCodigo() == idLivro) {
                     livro = l;
                     break;

@@ -8,7 +8,9 @@ import java.util.Map;
 public class ConsultaUsuarioCommand implements Command {
 
     public void execute(CarregadorDeParametros parametros) {
+
         SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
+
         try {
             if (parametros.getParametros().length < 1) {
                 System.out.println("Comando 'usu' requer o código do usuário.");
@@ -42,9 +44,11 @@ public class ConsultaUsuarioCommand implements Command {
             } else {
                 for (Map<String, String> emp : emprestimos) {
                     System.out.println("  - Título: " + emp.get("Título: "));
-                    System.out.println("    Data do Empréstimo: " + emp.get("Data do Empréstimo: "));
+                    System.out.println("    Data de Empréstimo: " + emp.get("Data do Empréstimo: "));
                     System.out.println("    Status: " + emp.get("Status: "));
-                    System.out.println("    Data de Devolucao: " + emp.get("Data de Devolucao: "));
+                    String status = emp.get("Status: ");
+                    String label = (status != null && status.equalsIgnoreCase("Em curso")) ? "Data de Devolução Prevista" : "Data de Devolução";
+                    System.out.println("    " + label + ": " + emp.get("Data de Devolucao: "));
                     System.out.println("    --------------------");
                 }
             }

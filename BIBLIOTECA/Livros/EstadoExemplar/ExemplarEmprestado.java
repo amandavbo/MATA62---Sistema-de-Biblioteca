@@ -1,6 +1,5 @@
 package BIBLIOTECA.Livros.EstadoExemplar;
 
-import java.util.Date;
 import BIBLIOTECA.Livros.Exemplar.Exemplar;
 import BIBLIOTECA.Emprestimo.Emprestimo;
 import BIBLIOTECA.Usuarios.IUsuarios;

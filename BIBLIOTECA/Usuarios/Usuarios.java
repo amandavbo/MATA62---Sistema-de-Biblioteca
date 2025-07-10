@@ -3,10 +3,17 @@ package BIBLIOTECA.Usuarios;
 import BIBLIOTECA.Emprestimo.GerenciadorDeEmprestimos;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Reserva.GerenciadorDeReserva;
+import BIBLIOTECA.Reserva.Reserva;
 import BIBLIOTECA.Strategy.RegraDeEmprestimoAlunoGraduacao;
 import BIBLIOTECA.Strategy.RegraDeEmprestimoAlunoPosGraduacao;
 import BIBLIOTECA.Strategy.RegraDeEmprestimoProfessor;
 import BIBLIOTECA.Strategy.RegrasDeEmprestimo;
+import BIBLIOTECA.Observer.Observador;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Usuarios implements IUsuarios {
     private int usuarioId;
@@ -15,6 +22,8 @@ public class Usuarios implements IUsuarios {
     private GerenciadorDeEmprestimos gerenciadorDeEmprestimos;
     private RegrasDeEmprestimo regraDeEmprestimo;
     private GerenciadorDeReserva gerenciadorDeReserva;
+    private Observador observadorUsuario; //composição
+    private List<ILivroObservavel> livrosObservados;
 
     public Usuarios(int usuarioId, String nome, String tipoDeUsuario) {
         this.usuarioId = usuarioId;
@@ -23,14 +32,20 @@ public class Usuarios implements IUsuarios {
         this.gerenciadorDeEmprestimos = new GerenciadorDeEmprestimos();
         this.regraDeEmprestimo = definirRegraDeEmprestimo(tipoDeUsuario);
         this.gerenciadorDeReserva = new GerenciadorDeReserva();
+        this.observadorUsuario = new Observador(this);
+        this.livrosObservados = new ArrayList<>();
+
     }
-    
     public GerenciadorDeEmprestimos getGerenciadorDeEmprestimos() {
         return gerenciadorDeEmprestimos;
     }
 
+    public int getNotificacoes() {
+        return observadorUsuario.getNotificacoes();
+    }
+
     private RegrasDeEmprestimo definirRegraDeEmprestimo(String tipoDeUsuario) {
-        java.util.Map<String, RegrasDeEmprestimo> estrategia = new java.util.HashMap<>();
+        Map<String, RegrasDeEmprestimo> estrategia = new HashMap<>();
         estrategia.put("Aluno de Graduação", new RegraDeEmprestimoAlunoGraduacao());
         estrategia.put("Aluno de Pós-Graduação", new RegraDeEmprestimoAlunoPosGraduacao());
         estrategia.put("Professor", new RegraDeEmprestimoProfessor());
@@ -53,11 +68,11 @@ public class Usuarios implements IUsuarios {
         this.gerenciadorDeReserva.removerReserva(livroId);
     }
 
-    public java.util.List<?> getReservas() {
+    public List<Reserva> getReservas() {
         return this.gerenciadorDeReserva.getReservas();
     }
 
-    public java.util.List<java.util.Map<String, String>> getReservasFormatadas() {
+    public List<Map<String, String>> getReservasFormatadas() {
         return this.gerenciadorDeReserva.getReservasFormatadas();
     }
 
@@ -83,5 +98,15 @@ public class Usuarios implements IUsuarios {
 
     public String getTipoDeUsuario() {
         return TipoDeUsuario;
+    }
+
+    public void observar(ILivroObservavel livro) {
+        if (!livrosObservados.contains(livro)) {
+            livrosObservados.add(livro);
+            livro.adicionarObservador(this.observadorUsuario);
+            System.out.println("----------------------------------------");
+            System.out.println(this.nome + " agora está observando o livro " + livro.getTitulo() + ".");
+            System.out.println("----------------------------------------");
+        }
     }
 }

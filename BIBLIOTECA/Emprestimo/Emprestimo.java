@@ -11,12 +11,22 @@ public class Emprestimo implements IBiblioteca {
     private Date dataDeDevolucao;
     private int emprestimoId;
     private IUsuarios usuarioEmprestimo;
+    private String status; // Adicionado: Campo para o status do empréstimo
 
     public Emprestimo(IUsuarios usuarioEmprestimo, Exemplar exemplar, Date dataDeEmprestimo, Date dataDeDevolucao) {
         this.usuarioEmprestimo = usuarioEmprestimo;
         this.exemplar = exemplar;
         this.dataDeEmprestimo = dataDeEmprestimo;
         this.dataDeDevolucao = dataDeDevolucao;
+        this.status = "Em curso"; // Inicializa o status
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public boolean estaAtrasado() {
@@ -42,5 +52,9 @@ public class Emprestimo implements IBiblioteca {
     
     public IUsuarios getUsuarioEmprestimo() {
         return usuarioEmprestimo;
+    }
+
+    public void setDataDeDevolucao(Date dataDeDevolucao) {
+        this.dataDeDevolucao = dataDeDevolucao;
     }
 }

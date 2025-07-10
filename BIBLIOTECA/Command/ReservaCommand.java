@@ -8,15 +8,17 @@ import BIBLIOTECA.Reserva.Reserva;
 public class ReservaCommand implements Command {
     
     public void execute(CarregadorDeParametros parametros) {
+
+        SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
+
         if (parametros.getParametros().length < 2) {
             System.out.println("Comando requer o código do usuário e do livro.");
             return;
         }
         try {
+            
             int userId = Integer.parseInt(parametros.getParametros()[0]);
             int bookId = Integer.parseInt(parametros.getParametros()[1]);
-
-            SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
 
             IUsuarios usuario = null;
             for (IUsuarios u : sistema.getUsuarios()) {

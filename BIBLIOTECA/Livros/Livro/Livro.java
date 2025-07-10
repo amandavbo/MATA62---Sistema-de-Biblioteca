@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
 import BIBLIOTECA.Reserva.Reserva;
-import BIBLIOTECA.Usuarios.IUsuarios;
+import BIBLIOTECA.Observer.Observavel;
 
-public class Livro implements ILivroObservavel {
+public class Livro extends Observavel implements ILivroObservavel {
     private int livroId;
     private String titulo;
     private String editora;
@@ -16,8 +16,10 @@ public class Livro implements ILivroObservavel {
     private int qtdDeReservas;
     private List<IExemplarEmprestavel> exemplares;
     private List<Reserva> reservas;
+    
 
     public Livro(int livroId, String titulo, String editora, String autores, String edicao, String anoDePublicacao) {
+        super();
         this.livroId = livroId;
         this.titulo = titulo;
         this.editora = editora;
@@ -28,6 +30,9 @@ public class Livro implements ILivroObservavel {
         this.exemplares = new ArrayList<>();
         this.reservas = new ArrayList<>();
     }
+
+    
+
     public void adicionarExemplar(IExemplarEmprestavel exemplar) {
         this.exemplares.add(exemplar);
     }
@@ -105,6 +110,9 @@ public class Livro implements ILivroObservavel {
     public void adicionarReserva(Reserva reserva) {
         this.reservas.add(reserva);
         adicionarDaQtdDeReservas();
+        if (this.qtdDeReservas > 2) {
+            notificarObservadores(this);
+        }
     }
 
     public void removerReserva(int usuarioId) {
