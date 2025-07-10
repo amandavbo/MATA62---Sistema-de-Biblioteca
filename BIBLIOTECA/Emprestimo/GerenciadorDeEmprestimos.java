@@ -26,7 +26,6 @@ public class GerenciadorDeEmprestimos {
     }
 
     public void adicionarEmprestimo(Emprestimo emprestimo) {
-        emprestimo.getExemplar().getEstado().emprestar(emprestimo.getUsuarioEmprestimo(), emprestimo);
         emprestimosAtuais.add(emprestimo);
     }
 

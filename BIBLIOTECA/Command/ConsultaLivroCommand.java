@@ -2,10 +2,8 @@
 package BIBLIOTECA.Command;
 
 import BIBLIOTECA.Sistema.SistemaBiblioteca;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import BIBLIOTECA.Emprestimo.Emprestimo;
 import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
@@ -36,10 +34,11 @@ public class ConsultaLivroCommand implements Command {
                 return;
             }
 
-            System.out.println("(i) Título: " + livro.getTitulo());
+            System.out.println("----------------------------------------");
+            System.out.println("Título: " + livro.getTitulo());
 
             List<Reserva> reservas = livro.getReservas();
-            System.out.println("(ii) Quantidade de reservas: " + (reservas != null ? reservas.size() : 0));
+            System.out.println("Quantidade de reservas: " + (reservas != null ? reservas.size() : 0));
             if (reservas != null && !reservas.isEmpty()) {
                 for (Reserva reserva : reservas) {
                     if (reserva.getUsuario() != null) {
@@ -48,11 +47,11 @@ public class ConsultaLivroCommand implements Command {
                 }
             }
 
-            System.out.println("(iii) Exemplares:");
+            System.out.println("Exemplares:");
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             for (IExemplarEmprestavel exemplar : livro.getExemplares()) {
                 String status = exemplar.getEstado().estaDisponivel() ? "disponível" : "emprestado";
-                System.out.println("    - Código: " + exemplar.getCodigo() + ", Status: " + status);
+                System.out.println("    - Código: " + exemplar.getCodigo() + " | Status: " + status);
 
                 if (!exemplar.getEstado().estaDisponivel()) {
                     Emprestimo emprestimo = exemplar.getEstado().getEmprestimo();
@@ -67,6 +66,7 @@ public class ConsultaLivroCommand implements Command {
                     }
                 }
             }
+            System.out.println("----------------------------------------");
 
         } catch (NumberFormatException e) {
             System.out.println("Código do livro inválido.");

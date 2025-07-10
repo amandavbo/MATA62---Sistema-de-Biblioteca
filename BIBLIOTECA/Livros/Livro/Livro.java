@@ -107,6 +107,11 @@ public class Livro implements ILivroObservavel {
         adicionarDaQtdDeReservas();
     }
 
+    public void removerReserva(int usuarioId) {
+        this.reservas.removeIf(reserva -> reserva.getUsuario().getCodigo() == usuarioId);
+        removerDaQtdDeReservas();
+    }
+
     public String toString() {
         return "Livro: " + livroId + "\n" +
                "Título: " + titulo + "\n" +

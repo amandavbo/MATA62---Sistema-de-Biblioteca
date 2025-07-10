@@ -4,10 +4,8 @@ import BIBLIOTECA.Sistema.SistemaBiblioteca;
 import BIBLIOTECA.Usuarios.IUsuarios;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
-import BIBLIOTECA.Emprestimo.Emprestimo;
 import java.util.List;
-import java.util.Date;
-import java.util.Calendar;
+import BIBLIOTECA.Emprestimo.Emprestimo;
 
 public class EmprestimoCommand implements Command {
 
@@ -17,7 +15,6 @@ public class EmprestimoCommand implements Command {
             int usuarioId = Integer.parseInt(parametros.getParametro(0));
             int livroId = Integer.parseInt(parametros.getParametro(1));
 
-            // Recupera usuários e livros do sistema
             List<IUsuarios> usuarios = sistema.getUsuarios();
             List<ILivroObservavel> livros = sistema.getLivros();
 
@@ -42,13 +39,12 @@ public class EmprestimoCommand implements Command {
                 return;
             }
 
-            // Verifica se o usuário já possui um exemplar deste livro emprestado
-            if (usuario.getGerenciadorDeEmprestimos().possuiEmprestimoDoLivro(livroId)) {
-                System.out.println("Empréstimo não permitido para " + usuario.getNome() + " - Usuário já possui empréstimo do livro " + livro.getTitulo());
-                return;
+            //regra de empréstimo
+            if (!usuario.getRegraDeEmprestimo().podeEmprestar(usuario, livro)) {
+                return; 
             }
 
-            // Busca exemplar disponível
+            //busca exemplar disponível
             IExemplarEmprestavel exemplarDisponivel = null;
             List<IExemplarEmprestavel> exemplares = livro.getExemplares();
             for (IExemplarEmprestavel ex : exemplares) {
@@ -63,41 +59,24 @@ public class EmprestimoCommand implements Command {
                 return;
             }
 
-            // Calculate return date
-            Date dataEmprestimo = new Date();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(dataEmprestimo);
-            int diasEmprestimo = 0;
-
-            switch (usuario.getTipoDeUsuario()) {
-                case "Aluno Graduação":
-                    diasEmprestimo = 4;
-                    break;
-                case "Aluno Pós-Graduação":
-                    diasEmprestimo = 5;
-                    break;
-                case "Professor":
-                    diasEmprestimo = 8;
-                    break;
-                default:
-                    System.out.println("Tipo de usuário desconhecido. Não é possível determinar a data de devolução.");
-                    return;
-            }
-            calendar.add(Calendar.DAY_OF_MONTH, diasEmprestimo);
-            Date dataDevolucao = calendar.getTime();
-
-            // Create Emprestimo object
-            Emprestimo novoEmprestimo = new Emprestimo(usuario, exemplarDisponivel, dataEmprestimo, dataDevolucao);
-
-            // Update exemplar state and add to user's loan manager
-            exemplarDisponivel.getEstado().emprestar(usuario, novoEmprestimo);
+            Emprestimo novoEmprestimo = exemplarDisponivel.getEstado().emprestar(usuario);
             usuario.getGerenciadorDeEmprestimos().adicionarEmprestimo(novoEmprestimo);
 
+            //cancela a reserva se o usuário possuía uma para este livro
+            if (usuario.getGerenciadorDeReserva().possuiReserva(livro)) {
+                usuario.getGerenciadorDeReserva().removerReserva(livroId);
+                livro.removerReserva(usuarioId); 
+                System.out.println("Reserva do livro " + livro.getTitulo() + " para " + usuario.getNome() + " cancelada devido ao empréstimo.");
+            }
+
+            System.out.println("----------------------------------------");
             System.out.println("Empréstimo realizado com sucesso para " + usuario.getNome() + " - " + livro.getTitulo());
+            System.out.println("----------------------------------------");
 
         } catch (Exception e) {
+            System.out.println("----------------------------------------");
             System.out.println("Parâmetros inválidos para empréstimo.");
-            e.printStackTrace(); // For debugging
+            System.out.println("----------------------------------------");
         }
     }
 }

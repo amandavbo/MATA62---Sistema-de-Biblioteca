@@ -59,10 +59,10 @@ public class ReservaCommand implements Command {
                 }
 
                 //professores não podem reservar
-                if (usuario.getTipoDeUsuario().equals("Professor")) {
-                    System.out.println("Reserva não permitida para Professores");
-                    return;
-                }
+                // if (usuario.getTipoDeUsuario().equals("Professor")) {
+                //     System.out.println("Reserva não permitida para Professores");
+                //     return;
+                // }
 
                 Reserva reserva = new Reserva(livro, usuario, new java.util.Date());
                 usuario.adicionarReserva(livro);

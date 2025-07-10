@@ -5,7 +5,7 @@ import BIBLIOTECA.Livros.Exemplar.Exemplar;
 import BIBLIOTECA.Usuarios.IUsuarios;
 
 public interface IExemplarEstado {
-    public void emprestar(IUsuarios usuario, Emprestimo emprestimo);
+    public Emprestimo emprestar(IUsuarios usuario);
     public void devolver();
     public boolean estaDisponivel();
     public Exemplar getExemplar();

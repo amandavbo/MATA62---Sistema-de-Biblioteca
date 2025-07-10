@@ -11,10 +11,10 @@ public class ExemplarEmprestado implements IExemplarEstado {
     private IUsuarios usuarioEmprestimo;
     private Emprestimo emprestimo;
 
-    public ExemplarEmprestado(IUsuarios usuarioEmprestimo, Exemplar exemplar, Date dataDeEmprestimo, Date dataDeDevolucao) {
-        this.exemplar = exemplar;
-        this.usuarioEmprestimo = usuarioEmprestimo;
-        this.emprestimo = new Emprestimo(usuarioEmprestimo, exemplar, dataDeEmprestimo, dataDeDevolucao);
+    public ExemplarEmprestado(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
+        this.exemplar = emprestimo.getExemplar();
+        this.usuarioEmprestimo = emprestimo.getUsuarioEmprestimo();
     } 
 
     public Exemplar getExemplar() {
@@ -29,15 +29,9 @@ public class ExemplarEmprestado implements IExemplarEstado {
         return emprestimo;
     }
 
-    public void emprestar(IUsuarios usuario) {
-        // Método não aplicável quando o exemplar já está emprestado
-        return;
-    }
 
-    @Override
-    public void emprestar(IUsuarios usuario, Emprestimo emprestimo) {
-        // Método não aplicável quando o exemplar já está emprestado
-        return;
+    public Emprestimo emprestar(IUsuarios usuario) {
+        return null;
     }
 
     public boolean estaDisponivel() {
