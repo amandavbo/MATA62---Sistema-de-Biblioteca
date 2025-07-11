@@ -1,4 +1,3 @@
-import BIBLIOTECA.Sistema.SistemaBiblioteca;
 import BIBLIOTECA.Command.ComandosDoUsuario;
 import BIBLIOTECA.Command.CarregadorDeParametros;
 
@@ -11,8 +10,6 @@ public class teste {
         String[] parametrosArray = new String[parts.length - 1];
         System.arraycopy(parts, 1, parametrosArray, 0, parts.length - 1);
 
-        // Integração com suas classes Java reais.
-        SistemaBiblioteca librarySystem = SistemaBiblioteca.getInstance();
         ComandosDoUsuario comandosDoUsuario = new ComandosDoUsuario();
         CarregadorDeParametros parametros = new CarregadorDeParametros(parametrosArray);
         
@@ -20,7 +17,19 @@ public class teste {
     }
 
     public static void main(String[] args) {
-        System.out.println("Iniciando testes de comandos...");
+        System.out.println("Executando comandos adicionais...");
+
+        // Adicionais do início do seu prompt
+        // executeCommand("res 123 101");
+        // executeCommand("res 456 101");
+        // executeCommand("emp 456 101");
+        // executeCommand("emp 123 101");
+        // executeCommand("dev 123 101");
+        // executeCommand("res 456 101");
+        // executeCommand("emp 456 101");
+
+        executeCommand("lus");
+        executeCommand("llv");
 
         System.out.println("\nTestar Observação");
         executeCommand("obs 100 100");
@@ -45,7 +54,7 @@ public class teste {
         executeCommand("emp 123 100");
 
         System.out.println("\nTeste Consulta Usuario");
-        executeCommand("res 123 101");
+        executeCommand("res 123 200");
         executeCommand("usu 123");
 
         System.out.println("\nTestes de comandos concluídos.");

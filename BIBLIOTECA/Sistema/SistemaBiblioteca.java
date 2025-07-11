@@ -2,7 +2,7 @@ package BIBLIOTECA.Sistema;
 
 //import java.util.ArrayList;
 
-// Padrão Singleton
+//Padrão Singleton
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ import BIBLIOTECA.Usuarios.Usuarios;
 import BIBLIOTECA.Livros.Livro.Livro;
 import BIBLIOTECA.Livros.Livro.ILivroObservavel;
 import BIBLIOTECA.Livros.Exemplar.Exemplar;
-import BIBLIOTECA.Livros.Exemplar.IExemplarEmprestavel;
 
 public class SistemaBiblioteca {
 
@@ -34,13 +33,13 @@ public class SistemaBiblioteca {
     }
 
     private void inicializarDadosTeste() {
-        // add usuários
+        //add usuários
         usuarios.add(new Usuarios(123, "João da Silva", "Aluno de Graduação"));
         usuarios.add(new Usuarios(456, "Luiz Fernando Rodrigues", "Aluno de Pós-Graduação"));
         usuarios.add(new Usuarios(789, "Pedro Paulo", "Aluno de Graduação"));
         usuarios.add(new Usuarios(100, "Carlos Lucena", "Professor"));
 
-        // add livros
+        //add livros
         Object[][] livrosData = {
             {100, "Engenharia de Software", "Addison Wesley", "Ian Sommerville", "6ª", "2000", 2},
             {101, "UML - Guia do Usuário", "Campus", "Grady Booch, James Rumbaugh, Ivar Jacobson", "7ª", "2000", 1},
