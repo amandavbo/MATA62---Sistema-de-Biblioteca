@@ -1,47 +1,8 @@
-
 # 📚 Sistema de Gerenciamento de Biblioteca Acadêmica
 
-Bem-vindo ao repositório do projeto de um sistema de biblioteca acadêmica desenvolvido com base nos princípios da programação orientada a objetos e aplicação de padrões de projeto. 🛠️
+Bem-vindo ao repositório do projeto de um sistema de biblioteca acadêmica, desenvolvido para a disciplina MATA62 - Engenharia de Software I na Universidade Federal da Bahia (UFBA).
 
----
-
-## 🎯 Objetivo
-
-Este projeto tem como objetivo simular o funcionamento de um sistema de biblioteca acadêmica, permitindo **empréstimo, devolução, reserva, consulta e observação de livros**, com **regras específicas por tipo de usuário**.
-
----
-
-
-## ⚙️ Lógica, Estrutura e Padrões de Projeto
-
-O sistema foi desenvolvido com foco em **orientação a interfaces**, baixo acoplamento e uso explícito de padrões de projeto:
-
-- **Command**: Cada ação do usuário (empréstimo, devolução, reserva, consulta, observação) é encapsulada em uma classe de comando, facilitando a extensão e manutenção do sistema.
-- **Strategy**: As regras de empréstimo variam conforme o tipo de usuário (aluno de graduação, pós-graduação, professor) e são encapsuladas em estratégias distintas, selecionadas dinamicamente via um mapa de estratégias, sem uso de `if` ou `switch` para lógica de negócio.
-- **Singleton**: O sistema de biblioteca (`SistemaBiblioteca`) é implementado como singleton, centralizando o gerenciamento de usuários, livros e exemplares em memória.
-- **Observer** (em desenvolvimento): Professores podem se tornar observadores de livros, recebendo notificações de eventos relevantes.
-- **Orientação a interfaces**: Todas as entidades principais (usuário, livro, exemplar) dependem de interfaces, permitindo fácil extensão e baixo acoplamento.
-- **Sem persistência em banco de dados** – todos os dados são carregados em memória no início da execução.
-
-### 🧩 Estrutura Modular
-
-- `SistemaBiblioteca.java`: Singleton com listas de livros, usuários e métodos de consulta/manipulação.
-- `Command/`: Comandos do usuário implementando o padrão Command.
-- `Strategy/`: Estratégias de empréstimo para cada tipo de usuário.
-- `Emprestimo/`: Gerenciador de empréstimos, histórico e regras de atraso.
-- `Usuarios/`: Usuários implementando interface e selecionando estratégia de empréstimo via mapa.
-- `Livros/`: Entidades de livro, exemplar e estados (disponível/emprestado) usando padrão State.
-- `Reserva/`: (Opcional) Gerenciamento de reservas.
-- `Utilidades/`: Funções auxiliares e formatação de dados.
-
-### 🚦 Regras e Restrições Técnicas
-
-- ❌ **Sem banco de dados** (dados criados em memória)
-- ❌ **Sem interface gráfica** (linha de comando apenas)
-- ❌ **Sem uso de `if` ou `switch` para tipos de usuário** na lógica de negócio (uso de mapa de estratégias)
-- ✅ Uso explícito de padrões de projeto (`Command`, `Strategy`, `Singleton`, `State`, `Observer`)
-- ✅ Entrada de dados simulada via terminal
-
+O sistema simula o funcionamento de uma biblioteca, permitindo **empréstimo, devolução, reserva, consulta e observação de livros**, com regras de negócio específicas para cada tipo de usuário (Aluno de Graduação, Pós-Graduação e Professor).
 
 ---
 
@@ -50,110 +11,79 @@ O sistema foi desenvolvido com foco em **orientação a interfaces**, baixo acop
 O sistema é executado via **linha de comando**, com os seguintes comandos disponíveis:
 
 | Comando | Descrição |
-|--------|-----------|
-| `emp <codUsu> <codLivro>` | Realiza empréstimo |
-| `dev <codUsu> <codLivro>` | Realiza devolução |
-| `res <codUsu> <codLivro>` | Realiza reserva |
-| `obs <codUsu> <codLivro>` | Professor se torna observador |
-| `liv <codLivro>` | Consulta dados do livro |
-| `usu <codUsu>` | Consulta dados do usuário |
-| `ntf <codUsu>` | Consulta notificações recebidas |
-| `sai` | Encerra o programa |
-
-### 📥 Exemplo de entrada:
-```bash
-emp 123 100
-res 456 101
-obs 100 300
-```
-
-### 📤 Exemplo de saída:
-```text
-Empréstimo realizado com sucesso!
-Reserva efetuada!
-Professor registrado como observador.
-```
+|---|---|
+| `emp <codUsu> <codLivro>` | Realiza um empréstimo |
+| `dev <codUsu> <codLivro>` | Realiza uma devolução |
+| `res <codUsu> <codLivro>` | Realiza uma reserva |
+| `obs <codUsu> <codLivro>` | Adiciona um professor como observador de um livro |
+| `liv <codLivro>` | Consulta os dados de um livro específico |
+| `usu <codUsu>` | Consulta os dados de um usuário específico |
+| `ntf <codUsu>` | Consulta o número de notificações recebidas por um usuário |
+| `lus` | Lista todos os usuários cadastrados |
+| `llv` | Lista todos os livros cadastrados |
+| `sair` | Encerra o programa |
 
 ---
 
-## 📏 Critérios e Restrições Técnicas
+## ✨ Padrões de Projeto Aplicados
 
-- ❌ **Sem banco de dados** (dados criados em memória);
-- ❌ **Sem interface gráfica** (linha de comando apenas);
-- ❌ **Sem uso de `if` ou `switch` para tipos de usuário**;
-- ✅ Uso de padrões de projeto (`Command`, `Strategy`, `Singleton`);
-- ✅ Entrada de dados simulada via terminal.
+O sistema foi arquitetado com cinco padrões de projeto que trabalham em conjunto para criar uma solução coesa, extensível e alinhada aos requisitos.
+
+*   **Singleton**: Aplicado na classe `SistemaBiblioteca`, que possui um construtor privado e um método estático `getInstance()`. Esta abordagem é ideal para o requisito de um sistema com estado centralizado, garantindo que todos os componentes acessem a mesma instância dos dados (livros e usuários) e evitando a necessidade de passar referências por todo o código.
+
+*   **Command**: A interface `Command` define um método `execute()`, e classes concretas (`EmprestimoCommand`, `DevolucaoCommand`) encapsulam a lógica de cada ação. O `ComandosDoUsuario` atua como invocador, mapeando a entrada do usuário ao comando correspondente. Este padrão desacopla quem solicita a ação de quem a executa, tornando o sistema muito fácil de estender com novos comandos sem alterar o código existente.
+
+*   **Strategy**: A interface `RegrasDeEmprestimo` define uma família de algoritmos, implementada por classes como `RegraDeEmprestimoAlunoGraduacao`. A classe `Usuarios` delega a lógica de validação de empréstimo a uma dessas estratégias. Esta é a solução perfeita para o requisito de que diferentes tipos de usuários tenham regras de empréstimo distintas, eliminando a necessidade de condicionais e tornando as regras claras, isoladas e fáceis de modificar.
+
+*   **Observer**: A classe `Livro` estende `Observavel`, mantendo uma lista de `Observador` (composto por `Usuarios`). Quando o número de reservas de um livro ultrapassa o limite, ele notifica todos os seus observadores. Este padrão modela perfeitamente a relação "publicador/assinante" exigida pelo requisito de notificação. A implementação foi feita com **herança** (`Livro` é um `Observavel`), uma abordagem clássica e direta para este cenário.
+
+*   **State**: A interface `IExemplarEstado` e suas implementações (`ExemplarDisponivel`, `ExemplarEmprestado`) gerenciam a disponibilidade de um `Exemplar`. Em vez de usar condicionais para verificar a disponibilidade, o comportamento de `emprestar()` e `devolver()` é delegado ao objeto de estado atual. Isso atende ao requisito de que um exemplar tenha comportamentos diferentes com base em sua disponibilidade de forma limpa e extensível.
 
 ---
 
-## 🧪 Casos de Teste
+##  UML
 
-| Comando de Entrada         | Saída Esperada |
-|---------------------------|----------------|
-| `emp 123 100`             | Empréstimo realizado com sucesso |
-| `emp 123 100` (repetido)  | ❌ Empréstimo negado: já possui exemplar do livro |
-| `res 456 101`             | Reserva realizada com sucesso |
-| `ntf 100` (sem eventos)   | Notificações recebidas: 0 |
-| `liv 100`                 | Detalhes do livro + reservas e empréstimos |
+Abaixo estão os diagramas que modelam a arquitetura e os padrões implementados no sistema.
+
+### Diagrama Geral
+![Diagrama Geral](Diagramas/Amanda_Nalanda_Diagrama_Geral.drawio.png)
+
+### Padrão Command
+![Diagrama do Padrão Command](Diagramas/Amanda_Nalanda_Diagrama_Command.drawio.png)
+
+### Padrão Strategy
+![Diagrama do Padrão Strategy](Diagramas/Amanda_Nalanda_Diagrama_Strategy.drawio.png)
+
+### Padrão Observer
+![Diagrama do Padrão Observer](Diagramas/Amanda_Nalanda_Diagrama_Observer.drawio.png)
 
 ---
 
 ## 🚀 Como Rodar Localmente
 
-1. 🔁 Clone este repositório:
-```bash
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
-cd nome-do-repositorio
-```
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/seu-usuario/MATA62---Sistema-de-Biblioteca.git
+    cd MATA62---Sistema-de-Biblioteca
+    ```
 
-2. 🧰 Compile o projeto:
-```bash
-javac Main.java
-```
+2.  **Compile os arquivos Java:**
+    Navegue até o diretório raiz do projeto e compile todos os arquivos `.java`.
+    ```bash
+    javac ./BIBLIOTECA/Sistema/Main.java -d .
+    ```
 
-3. ▶️ Execute:
-```bash
-java Main
-```
-
----
-
-
-## 🧠 Resumo da Implementação
-
-O sistema é altamente modular, orientado a interfaces e padrões:
-
-- **Gerenciamento centralizado**: `SistemaBiblioteca` (Singleton) inicializa e gerencia todos os dados em memória.
-- **Comandos**: Cada ação do usuário é um comando independente, facilitando a extensão.
-- **Usuários flexíveis**: Cada usuário possui um gerenciador de empréstimos próprio e seleciona sua estratégia de empréstimo via mapa, sem condicionais.
-- **Livros e exemplares**: Gerenciados por interfaces e estados, permitindo múltiplos exemplares e controle de disponibilidade.
-- **Regras de negócio**: Estratégias de empréstimo encapsulam as regras específicas de cada perfil.
-- **Notificações e observação**: Professores podem observar livros e receber notificações (em desenvolvimento).
-
-Essas decisões garantem **alta coesão, baixo acoplamento** e facilitam a extensão para novos tipos de usuário, regras ou funcionalidades.
+3.  **Execute o sistema:**
+    ```bash
+    java BIBLIOTECA.Sistema.Main
+    ```
 
 ---
 
-## 👨‍💻 Desenvolvedores
+## 👨‍💻 Desenvolvedoras
 
-- **Amanda Vilas Boas** – [@amandavbo](https://github.com/amandavbo)  
-- **Nalanda Santana Pita** – [@nalandap](https://github.com/nalandap)
-
----
-
-## 📄 Licença
-
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
-
----
-
-## 🏫 Informações Adicionais
-
-- 📘 **Linguagem**: Java ☕
-- 📥 **Entrada**: comandos digitados no terminal
-- 📤 **Saída**: mensagens no terminal
-- 🎓 **Disciplina**: MATA62 – Engenharia de Software I
-- 🏫 **Instituição**: Universidade Federal da Bahia (UFBA)
+*   **Amanda Vilas Boas** – [@amandavbo](https://github.com/amandavbo)
+*   **Nalanda Santana Pita** – [@nalandap](https://github.com/nalandap)
 
 ---
 
