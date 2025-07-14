@@ -13,7 +13,10 @@ public class ConsultaUsuarioCommand implements Command {
 
         try {
             if (parametros.getParametros().length < 1) {
+                System.out.println("----------------------------------------");
                 System.out.println("Comando 'usu' requer o código do usuário.");
+                System.out.println("Uso: usu <código_usuário>");
+                System.out.println("----------------------------------------");
                 return;
             }
 
@@ -72,7 +75,7 @@ public class ConsultaUsuarioCommand implements Command {
 
         } catch (NumberFormatException e) {
             System.out.println("----------------------------------------");
-            System.out.println("Código do usuário inválido.");
+            System.out.println("Parâmetro inválido | Use: usu <código_usuário>");
             System.out.println("----------------------------------------");
         } catch (Exception e) {
             System.out.println("----------------------------------------");

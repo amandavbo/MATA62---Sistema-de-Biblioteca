@@ -12,6 +12,14 @@ public class EmprestimoCommand implements Command {
     public void execute(CarregadorDeParametros parametros) {
         SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
         try {
+            if (parametros.getParametros().length < 2) {
+                System.out.println("----------------------------------------");
+                System.out.println("Comando 'dev' requer o código do usuário e do livro.");
+                System.out.println("Uso: dev <código_usuário> <código_livro>");
+                System.out.println("----------------------------------------");
+                return;
+            }
+
             int usuarioId = Integer.parseInt(parametros.getParametro(0));
             int livroId = Integer.parseInt(parametros.getParametro(1));
 
@@ -75,7 +83,7 @@ public class EmprestimoCommand implements Command {
 
         } catch (Exception e) {
             System.out.println("----------------------------------------");
-            System.out.println("Parâmetros inválidos para empréstimo.");
+            System.out.println("Parâmetros inválidos | Use: emp <código_usuário> <código_livro>");
             System.out.println("----------------------------------------");
         }
     }

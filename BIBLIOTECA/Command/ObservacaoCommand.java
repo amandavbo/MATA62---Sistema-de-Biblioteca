@@ -49,7 +49,7 @@ public class ObservacaoCommand implements Command {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("Códigos de usuário ou livro inválidos.");
+            System.out.println("Parâmetros inválidos | Use: obs <código_usuário> <código_livro>");
         }
     }
 }

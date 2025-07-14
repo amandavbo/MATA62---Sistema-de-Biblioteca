@@ -17,7 +17,11 @@ public class ConsultaLivroCommand implements Command {
         SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
 
         if (parametros.getParametros().length < 1) {
+            System.out.println("----------------------------------------");
             System.out.println("Comando 'liv' requer o código do livro.");
+            System.out.println("Uso: liv <código_livro>");
+            System.out.println("----------------------------------------");
+            
             return;
         }
 
@@ -72,7 +76,7 @@ public class ConsultaLivroCommand implements Command {
             System.out.println("----------------------------------------");
 
         } catch (NumberFormatException e) {
-            System.out.println("Código do livro inválido.");
+            System.out.println("Parâmetro inválido | Use: liv <código_livro>");
         }
     }
 }

@@ -12,7 +12,10 @@ public class ReservaCommand implements Command {
         SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
 
         if (parametros.getParametros().length < 2) {
+            System.out.println("----------------------------------------");
             System.out.println("Comando requer o código do usuário e do livro.");
+            System.out.println("Uso: res <código_usuário> <código_livro>");
+            System.out.println("----------------------------------------");
             return;
         }
         try {
@@ -73,7 +76,7 @@ public class ReservaCommand implements Command {
                 System.out.println("Reserva realizada com sucesso para " + usuario.getNome() + " - " + livro.getTitulo());
             }
         } catch (NumberFormatException e) {
-            System.out.println("Código do usuário ou livro inválido.");
+            System.out.println("Parâmetros inválidos | Use: res <código_usuário> <código_livro>");
         }
     }
 }

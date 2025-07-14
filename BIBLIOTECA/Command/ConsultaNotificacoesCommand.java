@@ -39,7 +39,7 @@ public class ConsultaNotificacoesCommand implements Command {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("Código do usuário inválido.");
+            System.out.println("Parâmetro inválido | Use: ntf <código_usuário>");
         }
     }
 }

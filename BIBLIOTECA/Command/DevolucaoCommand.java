@@ -11,7 +11,10 @@ public class DevolucaoCommand implements Command {
         SistemaBiblioteca sistema = SistemaBiblioteca.getInstance();
         try {
             if (parametros.getParametros().length < 2) {
-                System.out.println("Parâmetros inválidos. Use: dev <código_usuário> <código_livro>");
+                System.out.println("----------------------------------------");
+                System.out.println("Comando 'dev' requer o código do usuário e do livro.");
+                System.out.println("Uso: dev <código_usuário> <código_livro>");
+                System.out.println("----------------------------------------");
                 return;
             }
 
@@ -66,7 +69,7 @@ public class DevolucaoCommand implements Command {
 
         } catch (NumberFormatException e) {
             System.out.println("----------------------------------------");
-            System.out.println("Parâmetros inválidos. Use: dev <código_usuário> <código_livro>");
+            System.out.println("Parâmetros inválidos | Use: dev <código_usuário> <código_livro>");
             System.out.println("----------------------------------------");
         } catch (Exception e) {
             System.out.println("----------------------------------------");
