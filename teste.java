@@ -17,16 +17,6 @@ public class teste {
     }
 
     public static void main(String[] args) {
-        System.out.println("Executando comandos adicionais...");
-
-        // Adicionais do início do seu prompt
-        // executeCommand("res 123 101");
-        // executeCommand("res 456 101");
-        // executeCommand("emp 456 101");
-        // executeCommand("emp 123 101");
-        // executeCommand("dev 123 101");
-        // executeCommand("res 456 101");
-        // executeCommand("emp 456 101");
 
         executeCommand("lus");
         executeCommand("llv");
@@ -53,10 +43,8 @@ public class teste {
         executeCommand("dev 123 101");
         executeCommand("emp 123 100");
 
-        System.out.println("\nTeste Consulta Usuario");
+        System.out.println("\nTestar Consulta Usuario");
         executeCommand("res 123 200");
         executeCommand("usu 123");
-
-        System.out.println("\nTestes de comandos concluídos.");
     }
 }
