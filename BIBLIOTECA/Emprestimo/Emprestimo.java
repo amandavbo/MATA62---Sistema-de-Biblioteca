@@ -11,14 +11,14 @@ public class Emprestimo implements IBiblioteca {
     private Date dataDeDevolucao;
     private int emprestimoId;
     private IUsuarios usuarioEmprestimo;
-    private String status; // Adicionado: Campo para o status do empréstimo
+    private String status;
 
     public Emprestimo(IUsuarios usuarioEmprestimo, Exemplar exemplar, Date dataDeEmprestimo, Date dataDeDevolucao) {
         this.usuarioEmprestimo = usuarioEmprestimo;
         this.exemplar = exemplar;
         this.dataDeEmprestimo = dataDeEmprestimo;
         this.dataDeDevolucao = dataDeDevolucao;
-        this.status = "Em curso"; // Inicializa o status
+        this.status = "Em curso";
     }
 
     public String getStatus() {

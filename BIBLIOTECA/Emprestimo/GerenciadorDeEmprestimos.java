@@ -33,8 +33,8 @@ public class GerenciadorDeEmprestimos {
     public void devolverEmprestimo(Emprestimo emprestimo) {
         emprestimo.getExemplar().getEstado().devolver();
         emprestimosAtuais.remove(emprestimo);
-        emprestimo.setStatus("Finalizado"); // Define o status como Finalizado
-        emprestimo.setDataDeDevolucao(new Date()); // Atualiza a data de devolução para a data atual
+        emprestimo.setStatus("Finalizado");
+        emprestimo.setDataDeDevolucao(new Date()); 
         historicoEmprestimos.add(emprestimo);
     }
 
